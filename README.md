@@ -1,6 +1,6 @@
 # custom_gym
 
-2d environment of gym use pygame engine
+gym use pygame engine to make 2d environment
 
 so i make three simple custom environment by pygame
 
