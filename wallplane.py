@@ -90,13 +90,23 @@ class WallPlane:
         return self.player.state
 
     def step(self, act):
-        self.player.state = self.player.state + act*0.1
-        collide = False
+        x_pre_state = self.player.rect[0]
+        y_pre_state = self.player.rect[1]
+        self.player.state = self.player.state - act
+        self.player.update_rect()
         for args in self.walls:
             if pygame.sprite.collide_rect(self.player, args):
-                print(args.rect)
-        collide = True
-        self.player.update_rect()
+
+                x_state = self.player.rect[0]
+                y_state = self.player.rect[1]
+                self.player.state = self.player.state + act
+                if x_pre_state != x_state:
+                    act[0] = -act[0]
+                if y_pre_state != y_state:
+                    act[1] = -act[1]
+                self.player.state = self.player.state - act * 0.2
+                # collide when this change
+
         return self.player.state
 
     def render(self):
@@ -106,7 +116,6 @@ class WallPlane:
                 # if it is quit the game
                 self.close()
                 exit(0)
-
         self.screen.fill((255, 255, 255))
         for args in self.walls:
             self.screen.blit(args.surf, args.rect)
@@ -128,7 +137,7 @@ i = 1
 
 while running:
 
-    action = np.array([i, i])
+    action = (np.random.rand(2)*10)-5
 
     plane.step(action)
 
