@@ -104,7 +104,8 @@ class WallPlane:
                     act[0] = -act[0]
                 if y_pre_state != y_state:
                     act[1] = -act[1]
-                self.player.state = self.player.state - act * 0.2
+                self.player.state = self.player.state - act 
+                break
                 # collide when this change
 
         return self.player.state
